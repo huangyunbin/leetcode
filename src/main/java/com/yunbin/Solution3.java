@@ -22,6 +22,9 @@ public class Solution3 {
         }
         int[] array = new int[charArr.length];
         for (int i = 0; i < charArr.length; i++) {
+            if (i == charArr.length - 1) {
+                array[i] = 1;
+            }
             char c = charArr[i];
             inner:
             for (int j = i + 1; j < charArr.length; j++) {
@@ -39,7 +42,7 @@ public class Solution3 {
         for (int i = 0; i < array.length; i++) {
             int value = array[i];
             int tmp = value;
-            for (int j = 0; j < i + value; j++) {
+            for (int j = i + 1; j < i + value; j++) {
                 tmp = Math.min(tmp, array[j] + j - i);
             }
             result = Math.max(result, tmp);
