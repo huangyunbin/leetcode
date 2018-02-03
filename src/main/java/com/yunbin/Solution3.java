@@ -20,22 +20,33 @@ public class Solution3 {
         if (charArr.length <= 1) {
             return charArr.length;
         }
-        int result = 0;
+        int[] array = new int[charArr.length];
         for (int i = 0; i < charArr.length; i++) {
             char c = charArr[i];
             inner:
             for (int j = i + 1; j < charArr.length; j++) {
                 char tmp = charArr[j];
                 if (c == tmp) {
-                    result = Math.max(result, j + 1 - i);
+                    array[i] = Math.max(array[i], j - i);
                     break inner;
                 }
-                result = Math.max(result, j + 1 - i);
+                array[i] = Math.max(array[i], j + 1 - i);
             }
         }
+
+        int result = 0;
+
+        for (int i = 0; i < array.length; i++) {
+            int value = array[i];
+            int tmp = value;
+            for (int j = 0; j < i + value; j++) {
+                tmp = Math.min(tmp, array[j] + j - i);
+            }
+            result = Math.max(result, tmp);
+        }
+
         return result;
     }
-
 
 
 }
