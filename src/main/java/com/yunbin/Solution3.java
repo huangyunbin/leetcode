@@ -36,9 +36,14 @@ public class Solution3 {
         int length = s.length();
         int max = 1;
         for (int i = 0; i < length; i++) {
-            int jlength=Math.min(length,128);
+            char value = s.charAt(i);
+            int jlength = Math.min(length, 128);
+            inner:
             for (int j = i + 1; j < jlength; j++) {
-                String sub = s.substring(i, j+1);
+                if (value == s.charAt(j)) {
+                    break inner;
+                }
+                String sub = s.substring(i, j + 1);
                 if (unique(sub)) {
                     max = Math.max(sub.length(), max);
                 }
