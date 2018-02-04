@@ -14,41 +14,38 @@ package com.yunbin;
  */
 public class Solution3 {
 
+    public boolean unique(String s) {
+        char[] array = new char[128];
+        int length = s.length();
+        for (int i = 0; i < length; i++) {
+            char value = s.charAt(i);
+            if (++array[value] > 1) {
+                return false;
+            }
+        }
+
+        return true;
+    }
 
     public int lengthOfLongestSubstring(String s) {
         char[] charArr = s.toCharArray();
         if (charArr.length <= 1) {
             return charArr.length;
         }
-        int[] array = new int[charArr.length];
-        for (int i = 0; i < charArr.length; i++) {
-            if (i == charArr.length - 1) {
-                array[i] = 1;
-            }
-            char c = charArr[i];
-            inner:
-            for (int j = i + 1; j < charArr.length; j++) {
-                char tmp = charArr[j];
-                if (c == tmp) {
-                    array[i] = Math.max(array[i], j - i);
-                    break inner;
+
+        int length = s.length();
+        int max = 1;
+        for (int i = 0; i < length; i++) {
+            for (int j = i + 1; j < length; j++) {
+                String sub = s.substring(i, j+1);
+                if (unique(sub)) {
+                    max = Math.max(sub.length(), max);
                 }
-                array[i] = Math.max(array[i], j + 1 - i);
             }
         }
 
-        int result = 0;
 
-        for (int i = 0; i < array.length; i++) {
-            int value = array[i];
-            int tmp = value;
-            for (int j = i + 1; j < i + value; j++) {
-                tmp = Math.min(tmp, array[j] + j - i);
-            }
-            result = Math.max(result, tmp);
-        }
-
-        return result;
+        return max;
     }
 
 
