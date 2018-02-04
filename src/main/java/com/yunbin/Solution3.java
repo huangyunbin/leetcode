@@ -14,11 +14,11 @@ package com.yunbin;
  */
 public class Solution3 {
 
-    public boolean unique(String s) {
+
+    public boolean unique(char[] charArr, int start, int end) {
         char[] array = new char[128];
-        int length = s.length();
-        for (int i = 0; i < length; i++) {
-            char value = s.charAt(i);
+        for (int i = start; i <= end; i++) {
+            char value = charArr[i];
             if (++array[value] > 1) {
                 return false;
             }
@@ -43,9 +43,8 @@ public class Solution3 {
                 if (value == s.charAt(j)) {
                     break inner;
                 }
-                String sub = s.substring(i, j + 1);
-                if (unique(sub)) {
-                    max = Math.max(sub.length(), max);
+                if (unique(charArr, i, j)) {
+                    max = Math.max(j - i + 1, max);
                 }
             }
         }
