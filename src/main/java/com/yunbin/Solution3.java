@@ -38,13 +38,14 @@ public class Solution3 {
         for (int i = 0; i < length; i++) {
             char value = s.charAt(i);
             int jlength = Math.min(length, 128);
-            inner:
             for (int j = i + 1; j < jlength; j++) {
                 if (value == s.charAt(j)) {
-                    break inner;
+                    break;
                 }
                 if (unique(charArr, i, j)) {
                     max = Math.max(j - i + 1, max);
+                } else {
+                    break;
                 }
             }
         }
