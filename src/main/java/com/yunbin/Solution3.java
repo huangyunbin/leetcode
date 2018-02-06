@@ -36,22 +36,17 @@ public class Solution3 {
 
         int length = s.length();
         int[] index = new int[128];
-        int start = 1;
         int max = 1;
-        for (int i = 0; i < length; i++) {
 
-            for (int j = start; j < length; j++) {
-                if (unique(charArr, i, j)) {
-                    max = Math.max(j - i + 1, max);
-                    index[charArr[j]] = j;
-                } else {
-                    start = j + 1;
-                    i = index[charArr[j]];
-                    index[charArr[j]] = j;
-                    break;
-                }
 
+        for (int i = 0, j = 1; i < length && j < length; ) {
+            if (unique(charArr, i, j)) {
+                max = Math.max(j - i + 1, max);
+            } else {
+                i = index[charArr[j]] + 1;
             }
+            index[charArr[j]] = j;
+            j++;
         }
 
 
