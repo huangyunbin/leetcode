@@ -15,8 +15,6 @@ package com.yunbin;
 public class Solution3 {
 
 
-
-
     public int lengthOfLongestSubstring(String s) {
         char[] charArr = s.toCharArray();
         if (charArr.length <= 1) {
@@ -30,8 +28,8 @@ public class Solution3 {
         temp[charArr[0]] = 1;
         int max = 1;
 
-
-        for (int i = 0, j = 1; i < length && j < length; ) {
+        int i = 0;
+        for (int j = 1; j < length; j++) {
             if (temp[charArr[j]] == 0) {
                 max = Math.max(j - i + 1, max);
             } else {
@@ -42,7 +40,6 @@ public class Solution3 {
             }
             temp[charArr[j]] = 1;
             index[charArr[j]] = j;
-            j++;
         }
 
 
