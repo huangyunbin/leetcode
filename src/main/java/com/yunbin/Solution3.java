@@ -34,17 +34,20 @@ public class Solution3 {
         }
 
         int length = s.length();
+        int innerLength = Math.min(length, 128);
+        int start = 1;
         int max = 1;
         for (int i = 0; i < length; i++) {
             char value = s.charAt(i);
-            int jlength = Math.min(length, 128);
-            for (int j = i + 1; j < jlength; j++) {
+            for (int j = start; j < innerLength; j++) {
                 if (value == s.charAt(j)) {
+                    start = j+1;
                     break;
                 }
                 if (unique(charArr, i, j)) {
                     max = Math.max(j - i + 1, max);
                 } else {
+                    start = j+1;
                     break;
                 }
             }
