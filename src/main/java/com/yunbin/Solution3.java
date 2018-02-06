@@ -15,17 +15,7 @@ package com.yunbin;
 public class Solution3 {
 
 
-    public boolean unique(char[] charArr, int start, int end) {
-        char[] array = new char[128];
-        for (int i = start; i <= end; i++) {
-            char value = charArr[i];
-            if (++array[value] > 1) {
-                return false;
-            }
-        }
 
-        return true;
-    }
 
     public int lengthOfLongestSubstring(String s) {
         char[] charArr = s.toCharArray();
@@ -36,15 +26,21 @@ public class Solution3 {
 
         int length = s.length();
         int[] index = new int[128];
+        int[] temp = new int[128];
+        temp[charArr[0]] = 1;
         int max = 1;
 
 
         for (int i = 0, j = 1; i < length && j < length; ) {
-            if (unique(charArr, i, j)) {
+            if (temp[charArr[j]] == 0) {
                 max = Math.max(j - i + 1, max);
             } else {
+                for (int k = i; k < index[charArr[j]] + 1; k++) {
+                    temp[charArr[k]] = 0;
+                }
                 i = index[charArr[j]] + 1;
             }
+            temp[charArr[j]] = 1;
             index[charArr[j]] = j;
             j++;
         }
