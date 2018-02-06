@@ -24,22 +24,17 @@ public class Solution3 {
 
         int length = s.length();
         int[] index = new int[128];
-        int[] temp = new int[128];
-        temp[charArr[0]] = 1;
+        index[charArr[0]] = 1;
         int max = 1;
 
         int i = 0;
         for (int j = 1; j < length; j++) {
-            if (temp[charArr[j]] == 0) {
+            if (index[charArr[j]] <= i) {
                 max = Math.max(j - i + 1, max);
             } else {
-                for (int k = i; k < index[charArr[j]] + 1; k++) {
-                    temp[charArr[k]] = 0;
-                }
-                i = index[charArr[j]] + 1;
+                i = index[charArr[j]];
             }
-            temp[charArr[j]] = 1;
-            index[charArr[j]] = j;
+            index[charArr[j]] = j + 1;
         }
 
 
