@@ -37,17 +37,27 @@ public class Solution3 {
         int innerLength = Math.min(length, 128);
         int start = 1;
         int max = 1;
+        boolean skip = false;
         for (int i = 0; i < length; i++) {
-            char value = s.charAt(i);
+            char value = charArr[i];
+            if (skip) {
+                if (value == charArr[start - 1]) {
+                    skip = false;
+                }
+                continue;
+            }
+
             for (int j = start; j < innerLength; j++) {
-                if (value == s.charAt(j)) {
-                    start = j+1;
+                if (value == charArr[j]) {
+                    start = j + 1;
+//                    max = Math.max(j - i + 1, max);
                     break;
                 }
                 if (unique(charArr, i, j)) {
                     max = Math.max(j - i + 1, max);
                 } else {
-                    start = j+1;
+                    start = j + 1;
+                    skip = true;
                     break;
                 }
             }
