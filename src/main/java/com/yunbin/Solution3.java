@@ -41,11 +41,6 @@ public class Solution3 {
         for (int i = 0; i < length; i++) {
 
             for (int j = start; j < length; j++) {
-                if (charArr[i] == charArr[j]) {
-                    start = j + 1;
-                    index[charArr[j]] = j;
-                    break;
-                }
                 if (unique(charArr, i, j)) {
                     max = Math.max(j - i + 1, max);
                     index[charArr[j]] = j;
@@ -55,6 +50,7 @@ public class Solution3 {
                     index[charArr[j]] = j;
                     break;
                 }
+
             }
         }
 
