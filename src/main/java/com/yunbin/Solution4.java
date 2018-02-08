@@ -20,44 +20,61 @@ package com.yunbin;
 public class Solution4 {
 
     public double findMedianSortedArrays(int[] nums1, int[] nums2) {
-        int[] array = merge(nums1, nums2);
-        if (array.length % 2 == 1) {
-            return array[array.length / 2];
-        } else {
-            return (array[array.length / 2 - 1] + array[array.length / 2]) / 2.0;
+        int totalSize = nums1.length + nums2.length;
+        int middle1 = (totalSize / 2) - 1;
+        int middle2 = totalSize / 2;
+        if (totalSize % 2 == 1) {
+            middle1 = totalSize / 2;
         }
-    }
-
-    private int[] merge(int[] nums1, int[] nums2) {
-        if (nums1.length == 0) {
-            return nums2;
-        }
-        if (nums2.length == 0) {
-            return nums1;
-        }
-        int[] array = new int[nums1.length + nums2.length];
+        int value1 = 0;
         for (int i = 0, j = 0, k = 0; k < nums1.length + nums2.length; k++) {
             if (i == nums1.length) {
-                array[k] = nums2[j];
+                if (k == middle1) {
+                    value1 = nums2[j];
+                }
+                if (k == middle2) {
+                    middle2 = nums2[j];
+                    break;
+                }
                 j++;
                 continue;
             }
 
             if (j == nums2.length) {
-                array[k] = nums1[i];
+
+                if (k == middle1) {
+                    value1 = nums1[i];
+                }
+                if (k == middle2) {
+                    middle2 = nums1[i];
+                    break;
+                }
                 i++;
                 continue;
             }
 
             if (nums1[i] < nums2[j]) {
-                array[k] = nums1[i];
+                if (k == middle1) {
+                    value1 = nums1[i];
+                }
+                if (k == middle2) {
+                    middle2 = nums1[i];
+                    break;
+                }
                 i++;
             } else {
-                array[k] = nums2[j];
+                if (k == middle1) {
+                    value1 = nums2[j];
+                }
+                if (k == middle2) {
+                    middle2 = nums2[j];
+                    break;
+                }
                 j++;
             }
         }
-        return array;
+
+        return (value1 + middle2) / 2.0;
     }
 
 

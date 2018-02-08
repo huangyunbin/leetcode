@@ -5,7 +5,7 @@ package com.yunbin;
  */
 public class Solution4Test {
     public static void main(String[] args) {
-        double result = new Solution4().findMedianSortedArrays(new int[]{101}, new int[]{100});
+        double result = new Solution4().findMedianSortedArrays(new int[]{1,2}, new int[]{3,4});
         System.out.println(result);
     }
 }
