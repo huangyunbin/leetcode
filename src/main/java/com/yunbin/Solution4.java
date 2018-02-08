@@ -26,29 +26,50 @@ public class Solution4 {
         if (totalSize % 2 == 1) {
             middle1 = totalSize / 2;
         }
-        int[] array = new int[middle2 + 1];
+        int value1=0;
+        int value2=0;
         for (int i = 0, j = 0, k = 0; k < middle2 + 1; k++) {
             if (i == nums1.length) {
-                array[k] = nums2[j];
+                if(k==middle1){
+                    value1=nums2[j];
+                }
+                if(k==middle2){
+                    value2=nums2[j];
+                }
                 j++;
                 continue;
             }
 
             if (j == nums2.length) {
-                array[k] = nums1[i];
+                if(k==middle1){
+                    value1=nums1[i];
+                }
+                if(k==middle2){
+                    value2=nums1[i];
+                }
                 i++;
                 continue;
             }
 
             if (nums1[i] < nums2[j]) {
-                array[k] = nums1[i];
+                if(k==middle1){
+                    value1=nums1[i];
+                }
+                if(k==middle2){
+                    value2=nums1[i];
+                }
                 i++;
             } else {
-                array[k] = nums2[j];
+                if(k==middle1){
+                    value1=nums2[j];
+                }
+                if(k==middle2){
+                    value2=nums2[j];
+                }
                 j++;
             }
         }
-        return (array[middle1] + array[middle2]) / 2.0;
+        return (value1 + value2) / 2.0;
 
     }
 }
