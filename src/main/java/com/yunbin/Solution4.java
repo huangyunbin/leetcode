@@ -18,58 +18,38 @@ package com.yunbin;
  * The median is (2 + 3)/2 = 2.5
  */
 public class Solution4 {
-
-    public double findMedianSortedArrays(int[] nums1, int[] nums2) {
-        int totalSize = nums1.length + nums2.length;
-        int middle1 = (totalSize / 2) - 1;
-        int middle2 = totalSize / 2;
-        if (totalSize % 2 == 1) {
-            middle1 = totalSize / 2;
+    public double findMedianSortedArrays(int[] A, int[] B) {
+        int m = A.length;
+        int n = B.length;
+        if (m > n) { // to ensure m<=n
+            int[] temp = A; A = B; B = temp;
+            int tmp = m; m = n; n = tmp;
         }
-        int value1=0;
-        int value2=0;
-        for (int i = 0, j = 0, k = 0; k < middle2 + 1; k++) {
-            if (i == nums1.length) {
-                if(k==middle1){
-                    value1=nums2[j];
-                }
-                if(k==middle2){
-                    value2=nums2[j];
-                }
-                j++;
-                continue;
+        int iMin = 0, iMax = m, halfLen = (m + n + 1) / 2;
+        while (iMin <= iMax) {
+            int i = (iMin + iMax) / 2;
+            int j = halfLen - i;
+            if (i < iMax && B[j-1] > A[i]){
+                iMin = iMin + 1; // i is too small
             }
-
-            if (j == nums2.length) {
-                if(k==middle1){
-                    value1=nums1[i];
-                }
-                if(k==middle2){
-                    value2=nums1[i];
-                }
-                i++;
-                continue;
+            else if (i > iMin && A[i-1] > B[j]) {
+                iMax = iMax - 1; // i is too big
             }
+            else { // i is perfect
+                int maxLeft = 0;
+                if (i == 0) { maxLeft = B[j-1]; }
+                else if (j == 0) { maxLeft = A[i-1]; }
+                else { maxLeft = Math.max(A[i-1], B[j-1]); }
+                if ( (m + n) % 2 == 1 ) { return maxLeft; }
 
-            if (nums1[i] < nums2[j]) {
-                if(k==middle1){
-                    value1=nums1[i];
-                }
-                if(k==middle2){
-                    value2=nums1[i];
-                }
-                i++;
-            } else {
-                if(k==middle1){
-                    value1=nums2[j];
-                }
-                if(k==middle2){
-                    value2=nums2[j];
-                }
-                j++;
+                int minRight = 0;
+                if (i == m) { minRight = B[j]; }
+                else if (j == n) { minRight = A[i]; }
+                else { minRight = Math.min(B[j], A[i]); }
+
+                return (maxLeft + minRight) / 2.0;
             }
         }
-        return (value1 + value2) / 2.0;
-
+        return 0.0;
     }
 }
