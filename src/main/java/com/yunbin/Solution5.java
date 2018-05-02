@@ -46,27 +46,20 @@ public class Solution5 {
         
         for (; start < array.length && end > i; ) {
             if (array[start] == array[end]) {
-                if (end == start + 2) {
+                if (end - start <= 2) {
                     break;
-                }
-                if (end == start + 1) {
-                    if (start == i) {
-                        end = i + 1;
-                        break;
-                    } else {
-                        end = i;
-                        break;
-                    }
                 }
                 
                 start++;
+                end--;
                 
             } else {
+                start = i;
                 end--;
             }
         }
         
-        
+        end = end + (start - i);
         return new int[]{i, end};
     }
     
