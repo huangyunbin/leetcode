@@ -42,7 +42,8 @@ public class Solution5 {
     
     private int[] getPos(int i, char[] array) {
         int start = i;
-        int end = array.length - 1;
+        int endMax = array.length - 1;
+        int end = endMax;
         
         for (; start < array.length && end > i; ) {
             if (array[start] == array[end]) {
@@ -55,7 +56,8 @@ public class Solution5 {
                 
             } else {
                 start = i;
-                end--;
+                endMax--;
+                end = endMax;
             }
         }
         
