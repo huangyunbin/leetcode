@@ -47,13 +47,15 @@ public class Solution5 {
         for (; start < array.length && end > i; ) {
             if (array[start] == array[end]) {
                 if (end == start + 2) {
-                    return new int[]{start, end};
+                    break;
                 }
                 if (end == start + 1) {
                     if (start == i) {
-                        return new int[]{start, start + 1};
+                        end = i + 1;
+                        break;
                     } else {
-                        return new int[]{i, i + 1};
+                        end = i;
+                        break;
                     }
                 }
                 
@@ -65,7 +67,7 @@ public class Solution5 {
         }
         
         
-        return new int[]{start, end};
+        return new int[]{i, end};
     }
     
     
