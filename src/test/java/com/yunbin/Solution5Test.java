@@ -5,10 +5,10 @@ package com.yunbin;
  */
 public class Solution5Test {
     public static void main(String[] args) {
-        System.out.println(new Solution5().longestPalindrome("aaaa"));
-        System.out.println(new Solution5().longestPalindrome("abcda"));
+//        System.out.println(new Solution5().longestPalindrome("aaaa"));
+//        System.out.println(new Solution5().longestPalindrome("abcda"));
     
-        System.out.println(new Solution5().longestPalindrome("aaabaaaa"));
+        System.out.println(new Solution5().longestPalindrome("babadada"));
     }
 
 }

@@ -21,7 +21,6 @@ package com.yunbin;
  * Output: "bb"
  */
 public class Solution5 {
-    byte[] tmp = new byte[128];
     
     public String longestPalindrome(String s) {
         int length = s.length();
@@ -30,35 +29,22 @@ public class Solution5 {
         }
         char[] array = s.toCharArray();
         int target[] = new int[]{0, 0};
+        int maxSize = 0;
         for (int i = 0; i < length; i++) {
-            if (notPalindrome(i, array)) {
-                continue;
+            if (array.length - 1 - i <= maxSize) {
+                break;
             }
-            int tmp[] = getPos(i, array);
+            int tmp[] = getPos(i, array, maxSize);
             if (tmp[1] - tmp[0] > target[1] - target[0]) {
                 target = tmp;
+                maxSize = tmp[1] - tmp[0];
             }
         }
-        
-        
         return s.substring(target[0], target[1] + 1);
     }
     
-    private boolean notPalindrome(int j, char[] array) {
-        for (int i = j; i < array.length; i++) {
-            tmp[array[i]] = 1;
-        }
-        int total = 0;
-        for (int i = 65; i < 97; i++) {
-            if (tmp[i] == 1) {
-                total++;
-                tmp[i] = 0;
-            }
-        }
-        return total - 1 > array.length / 2;
-    }
     
-    private int[] getPos(int i, char[] array) {
+    private int[] getPos(int i, char[] array, int beforeMax) {
         int start = i;
         int endMax = array.length - 1;
         int end = endMax;
@@ -68,7 +54,6 @@ public class Solution5 {
                 if (end - start <= 2) {
                     break;
                 }
-                
                 start++;
                 end--;
                 
@@ -76,6 +61,9 @@ public class Solution5 {
                 start = i;
                 endMax--;
                 end = endMax;
+                if (end - start <= beforeMax) {
+                    return new int[]{i, i};
+                }
             }
         }
         
