@@ -1,8 +1,5 @@
 package com.yunbin;
 
-import java.util.ArrayList;
-import java.util.List;
-
 /**
  Given a 32-bit signed integer,reverse digits of an integer.
 
@@ -26,31 +23,21 @@ class Solution7 {
 
 	public int reverse(int x) {
 
-		List<Integer> temps = new ArrayList<>();
-
-		for (; ; ) {
-			temps.add(x % 10);
-			x = x / 10;
-			if (x == 0) {
-				break;
-			}
+		StringBuilder stringBuilder = new StringBuilder();
+		String first = "";
+		if (x < 0) {
+			first = "-";
+			x = Math.abs(x);
 		}
 
-		int result = 0;
-		int num = 1;
-		for (int i = 0; i < temps.size(); i++) {
-			int value = temps.get(temps.size() - 1 - i);
-			if (Integer.MAX_VALUE / num < Math.abs(value)) {
-				return 0;
-			}
-			int plus = value * num;
-			if (Integer.MAX_VALUE - Math.abs(result) < Math.abs(plus)) {
-				return 0;
-			}
-			result += plus;
-			num = num * 10;
+		stringBuilder.append(x).reverse();
+		String s = first + stringBuilder.toString();
+		try {
+			return Integer.valueOf(s);
+		} catch (Exception e) {
+			return 0;
 		}
 
-		return result;
+
 	}
 }
