@@ -6,7 +6,7 @@ package com.yunbin;
 public class Solution7Test {
 
 	public static void main(String[] args) {
-		int result = new Solution7().reverse(-123);
+		int result = new Solution7().reverse(1534236469);
 		System.out.println(result);
 	}
 }
