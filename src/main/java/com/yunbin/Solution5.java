@@ -23,52 +23,26 @@ package com.yunbin;
 public class Solution5 {
     
     public String longestPalindrome(String s) {
-        int length = s.length();
-        if (s.length() <= 1) {
-            return s;
-        }
-        char[] array = s.toCharArray();
-        int target[] = new int[]{0, 0};
-        int maxSize = 0;
-        for (int i = 0; i < length; i++) {
-            if (array.length - 1 - i <= maxSize) {
-                break;
-            }
-            int tmp[] = getPos(i, array, maxSize);
-            if (tmp[1] - tmp[0] > target[1] - target[0]) {
-                target = tmp;
-                maxSize = tmp[1] - tmp[0];
+        int start = 0, end = 0;
+        for (int i = 0; i < s.length(); i++) {
+            int len1 = expandAroundCenter(s, i, i);
+            int len2 = expandAroundCenter(s, i, i + 1);
+            int len = Math.max(len1, len2);
+            if (len > end - start) {
+                start = i - (len - 1) / 2;
+                end = i + len / 2;
             }
         }
-        return s.substring(target[0], target[1] + 1);
+        return s.substring(start, end + 1);
     }
     
-    
-    private int[] getPos(int i, char[] array, int beforeMax) {
-        int start = i;
-        int endMax = array.length - 1;
-        int end = endMax;
-        
-        for (; start < array.length && end > i; ) {
-            if (array[start] == array[end]) {
-                if (end - start <= 2) {
-                    break;
-                }
-                start++;
-                end--;
-                
-            } else {
-                start = i;
-                endMax--;
-                end = endMax;
-                if (end - start <= beforeMax) {
-                    return new int[]{i, i};
-                }
-            }
+    private int expandAroundCenter(String s, int left, int right) {
+        int L = left, R = right;
+        while (L >= 0 && R < s.length() && s.charAt(L) == s.charAt(R)) {
+            L--;
+            R++;
         }
-        
-        end = end + (start - i);
-        return new int[]{i, end};
+        return R - L - 1;
     }
     
     
