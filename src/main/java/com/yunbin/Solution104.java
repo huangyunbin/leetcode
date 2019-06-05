@@ -1,5 +1,7 @@
 package com.yunbin;
 
+import java.util.Stack;
+
 /**
  * Created by cloud.huang on 2019/6/5.
  * <p>
@@ -22,7 +24,25 @@ public class Solution104 {
             if (root == null) {
                 return 0;
             }
-            return 1+Math.max(maxDepth(root.left), maxDepth(root.right));
+            int max = 1;
+            Stack<TreeNode> nodeStack = new Stack<>();
+            Stack<Integer> valueStack = new Stack<>();
+            nodeStack.push(root);
+            valueStack.push(1);
+            while (!nodeStack.isEmpty()) {
+                TreeNode node = nodeStack.pop();
+                int high = valueStack.pop();
+                max = Math.max(high, max);
+                if (node.left != null) {
+                    nodeStack.push(node.left);
+                    valueStack.push(high + 1);
+                }
+                if (node.right != null) {
+                    nodeStack.push(node.right);
+                    valueStack.push(high + 1);
+                }
+            }
+            return max;
         }
     }
     
