@@ -1,6 +1,7 @@
 package com.yunbin;
 
-import java.util.Stack;
+import java.util.LinkedList;
+import java.util.Queue;
 
 /**
  * Created by cloud.huang on 2019/6/5.
@@ -24,22 +25,20 @@ public class Solution104 {
             if (root == null) {
                 return 0;
             }
-            int max = 1;
-            Stack<TreeNode> nodeStack = new Stack<>();
-            Stack<Integer> valueStack = new Stack<>();
-            nodeStack.push(root);
-            valueStack.push(1);
-            while (!nodeStack.isEmpty()) {
-                TreeNode node = nodeStack.pop();
-                int high = valueStack.pop();
-                max = Math.max(high, max);
-                if (node.left != null) {
-                    nodeStack.push(node.left);
-                    valueStack.push(high + 1);
-                }
-                if (node.right != null) {
-                    nodeStack.push(node.right);
-                    valueStack.push(high + 1);
+            Queue<TreeNode> queue = new LinkedList<>();
+            queue.offer(root);
+            int max = 0;
+            while (!queue.isEmpty()) {
+                max += 1;
+                int size = queue.size();
+                for (int i = 0; i < size; i++) {
+                    TreeNode node = queue.poll();
+                    if (node.left != null) {
+                        queue.offer(node.left);
+                    }
+                    if (node.right != null) {
+                        queue.offer(node.right);
+                    }
                 }
             }
             return max;
