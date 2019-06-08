@@ -1,5 +1,7 @@
 package com.yunbin;
 
+import java.util.PriorityQueue;
+
 /**
  * Created by cloud.huang on 2019/6/8.
  * <p>
@@ -29,41 +31,14 @@ public class Solution215 {
         if (k < 0 || k > nums.length) {
             return -1;
         }
-        int low = 0;
-        int high = nums.length - 1;
-        while (low < high) {
-            int index = part(nums, low, high);
-            if (index == k - 1) {
-                break;
-            }
-            if (index < k) {
-                low = index + 1;
-            } else {
-                high = index - 1;
+        PriorityQueue<Integer> priorityQueue = new PriorityQueue();
+        for (int i = 0; i < nums.length; i++) {
+            priorityQueue.add(nums[i]);
+            if (priorityQueue.size() > k) {
+                priorityQueue.poll();
             }
         }
-        
-        
-        return nums[k-1];
-        
-    }
-    
-    private int part(int[] nums, int low, int high) {
-        int key = nums[low];
-        while (low < high) {
-            while (low < high && nums[high] < key) {
-                high--;
-            }
-            if (low < high) nums[low++] = nums[high];
-            
-            
-            while (low < high && nums[low] > key) {
-                low++;
-            }
-            if (low < high) nums[high--] = nums[low];
-        }
-        nums[low] = key;
-        return low;
+        return priorityQueue.poll();
     }
     
     
