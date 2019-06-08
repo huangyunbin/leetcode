@@ -6,24 +6,38 @@ import java.util.Stack;
 
 /**
  * Created by cloud.huang on 2019/6/5.
+ * <p>
+ * Given a binary tree, return the preorder traversal of its nodes' values.
+ * <p>
+ * Example:
+ * <p>
+ * Input: [1,null,2,3]
+ * 1
+ * \
+ * 2
+ * /
+ * 3
+ * <p>
+ * Output: [1,2,3]
+ * <p>
+ * 前序遍历
  */
 public class Solution144 {
     
-    public List<Integer> preorderTraversal(TreeNode root) {
+    public List<Integer> preorderTraversal(TreeNode node) {
         List<Integer> list = new LinkedList<>();
-        if (root == null) {
+        if (node == null) {
             return list;
         }
         Stack<TreeNode> stack = new Stack<>();
-        stack.push(root);
-        while (!stack.isEmpty()) {
-            TreeNode node = stack.pop();
+        while (node != null) {
             list.add(node.val);
             if (node.right != null) {
                 stack.push(node.right);
             }
-            if (node.left != null) {
-                stack.push(node.left);
+            node = node.left;
+            if (node == null && !stack.isEmpty()) {
+                node = stack.pop();
             }
         }
         return list;
