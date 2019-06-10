@@ -33,15 +33,13 @@ public class Solution50 {
         Arrays.sort(intervals, (o1, o2) -> Integer.compare(o1[0], o2[0]));
         int[] begain = intervals[0];
         List<int[]> res = new ArrayList<>();
-        for (int i = 1; i < intervals.length; i++) {
-            if (begain[1] < intervals[i][0]) {
+        res.add(begain);
+        for (int[] interval : intervals) {
+            if (begain[1] < interval[0]) {
+                begain = interval;
                 res.add(begain);
-                begain = intervals[i];
             } else {
-                begain[1] = Math.max(begain[1], intervals[i][1]);
-            }
-            if (i == intervals.length - 1) {
-                res.add(begain);
+                begain[1] = Math.max(begain[1], interval[1]);
             }
         }
         
